@@ -1,4 +1,4 @@
-import { login } from "@/server/actions/auth"
+import login from "@/server/actions/login"
 import Link from "next/link"
 
 export default function LoginForm() {

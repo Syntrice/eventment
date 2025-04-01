@@ -1,4 +1,4 @@
-import { register } from "@/server/actions/auth"
+import register from "@/server/actions/register"
 import Link from "next/link"
 
 export default function RegisterForm() {

@@ -1,11 +1,11 @@
 import mongoose, { Schema, model } from "mongoose"
 
 export interface UserDocument {
-  _id: string
+  _id?: string
   username: string
   password: string
-  createdAt: Date
-  updatedAt: Date
+  createdAt?: Date
+  updatedAt?: Date
 }
 
 const UserSchema = new Schema<UserDocument>(
@@ -30,4 +30,9 @@ export default UserModel
 
 export const getUserByUsername = (username: string) => {
   return UserModel.findOne({ username: username })
+}
+
+export const createUser = (user: UserDocument) => {
+  // create and save user
+  return UserModel.create(user)
 }
