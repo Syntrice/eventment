@@ -23,6 +23,11 @@ const UserSchema = new Schema<UserDocument>(
   { timestamps: true }
 )
 
-const User = mongoose.models?.User || model<UserDocument>("User", UserSchema)
+const UserModel =
+  mongoose.models?.User || model<UserDocument>("User", UserSchema)
 
-export default User
+export default UserModel
+
+export const getUserByUsername = (username: string) => {
+  return UserModel.findOne({ username: username })
+}
