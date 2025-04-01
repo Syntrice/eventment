@@ -1,7 +1,9 @@
+import LoginForm from "./form/LoginForm"
+
 export default function Login() {
   return (
-    <main className="p-5">
-      <h2 className="text-3xl">Login</h2>
+    <main className="p-5 flex justify-center py-20 max-md:py-10">
+      <LoginForm />
     </main>
   )
 }

@@ -1,7 +1,9 @@
+import RegisterForm from "./form/RegisterForm"
+
 export default function Register() {
   return (
-    <main className="p-5">
-      <h2 className="text-3xl">Register</h2>
+    <main className="p-5 flex justify-center py-20 max-md:py-10">
+      <RegisterForm />
     </main>
   )
 }
