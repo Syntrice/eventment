@@ -1,11 +1,16 @@
+"use client"
+
 import register from "@/server/actions/register"
 import Link from "next/link"
+import { useActionState } from "react"
 
 export default function RegisterForm() {
+  const [formState, formAction] = useActionState(register, undefined)
+
   return (
     <div className="max-w-sm grow">
       <h2 className="text-2xl mb-5 text-center">Register</h2>
-      <form action={register} className="flex flex-col">
+      <form action={formAction} className="flex flex-col">
         <label className="mb-2" htmlFor="username">
           Username
         </label>
@@ -33,6 +38,7 @@ export default function RegisterForm() {
         <Link className="form-button" href="login">
           Login
         </Link>
+        {formState && <p className="my-5 text-red-600">{formState}</p>}
       </form>
     </div>
   )

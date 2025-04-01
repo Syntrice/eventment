@@ -3,18 +3,25 @@ import bcrypt from "bcryptjs"
 import { connectDB } from "../database/mongodb"
 import { createUser, getUserByUsername, UserDocument } from "../models/users"
 
-export default async function register(FormData: FormData) {
+// Form action returns either a string (representing error message)
+// or undefined.
+export type RegisterFormState = string | undefined
+
+export default async function register(
+  formState: RegisterFormState,
+  formData: FormData
+) {
   // TODO: validation
-  const username = FormData.get("username") as string
-  const password = FormData.get("password") as string
+  const username = formData.get("username") as string
+  const password = formData.get("password") as string
+
   try {
     await connectDB()
 
-    // Validate user exists
+    // Check if username exists
     const existingUser = await getUserByUsername(username)
     if (existingUser) {
-      console.log("User already exists")
-      return
+      return "Username already exists."
     }
 
     // Hash password
@@ -28,6 +35,6 @@ export default async function register(FormData: FormData) {
     await createUser(userDocument)
   } catch (e) {
     console.log(e)
-    return
+    return "An unknown error occurred."
   }
 }
