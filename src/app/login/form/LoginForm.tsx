@@ -1,10 +1,11 @@
+import { login } from "@/server/actions/auth"
 import Link from "next/link"
 
 export default function LoginForm() {
   return (
     <div className="max-w-sm grow">
       <h2 className="text-2xl mb-5 text-center">Login</h2>
-      <form className="flex flex-col" action="">
+      <form className="flex flex-col" action={login}>
         <label className="mb-2" htmlFor="username">
           Username
         </label>

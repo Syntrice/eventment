@@ -1,10 +1,11 @@
+import { register } from "@/server/actions/auth"
 import Link from "next/link"
 
 export default function RegisterForm() {
   return (
     <div className="max-w-sm grow">
       <h2 className="text-2xl mb-5 text-center">Register</h2>
-      <form className="flex flex-col" action="">
+      <form action={register} className="flex flex-col">
         <label className="mb-2" htmlFor="username">
           Username
         </label>
