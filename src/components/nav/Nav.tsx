@@ -3,7 +3,6 @@ import { useState, useEffect } from "react"
 import NavBrand from "./NavBrand"
 import NavToggle from "./NavToggle"
 import NavMenu from "./NavMenu"
-import ExpandedNavMenu from "./NavMenuExpanded"
 import { usePathname } from "next/navigation"
 
 export default function Nav() {
@@ -31,7 +30,7 @@ export default function Nav() {
           />
         </div>
       </nav>
-      {isToggled && <ExpandedNavMenu />}
+      {isToggled && <NavMenu vertical={true} />}
     </header>
   )
 }
