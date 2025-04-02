@@ -1,10 +1,12 @@
-import NavLink from "./NavLink"
+import UserStatus from "@/components/nav/userStatus/UserStatus"
+import ClientSessionData from "@/lib/definitions/ClientSessionData"
 
 interface NavMenuProps {
   vertical?: boolean
+  session?: ClientSessionData
 }
 
-export default function NavMenu({ vertical }: NavMenuProps) {
+export default function NavMenu({ session, vertical }: NavMenuProps) {
   return (
     <ul
       className={
@@ -13,15 +15,7 @@ export default function NavMenu({ vertical }: NavMenuProps) {
           : "flex gap-5 max-sm:hidden"
       }
     >
-      <li>
-        <NavLink href="login">Login</NavLink>
-      </li>
-      <li>
-        <NavLink href="register">Register</NavLink>
-      </li>
-      <li>
-        <NavLink href="logout">Logout</NavLink>
-      </li>
+      <UserStatus session={session} />
     </ul>
   )
 }
