@@ -1,8 +1,16 @@
 import GitHubLoginForm from "@/components/auth/GitHubLoginForm"
 import RegisterForm from "@/components/auth/RegisterForm"
+import { auth } from "@/lib/auth"
 import Link from "next/link"
+import { redirect } from "next/navigation"
 
-export default function Register() {
+export default async function Register() {
+  // Redirect if already logged in
+  const session = await auth()
+  if (session) {
+    redirect("/")
+  }
+
   return (
     <main className="p-5 flex justify-center py-20 max-md:py-10">
       <div className="max-w-sm grow text-center">
