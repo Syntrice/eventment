@@ -10,9 +10,11 @@ const credentialsProvider = Credentials({
     // Placeholder auth implementation
     const email = "test@test.com"
     const password = "password"
+    const name = "Test User"
+    const id = "1"
 
     if (credentials?.email === email && credentials?.password === password) {
-      return { email, password }
+      return { id, name, email }
     } else {
       throw new Error("Invalid credentials.")
     }

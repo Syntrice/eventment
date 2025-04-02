@@ -2,13 +2,19 @@
 
 import { isRedirectError } from "next/dist/client/components/redirect-error"
 import ActionResponse from "../definitions/ActionResponse"
+import { signIn } from "../auth"
 
-export default async function login(): Promise<ActionResponse> {
+export default async function login(
+  state: ActionResponse | undefined,
+  formData: FormData
+): Promise<ActionResponse> {
   try {
     console.log("Logging in...")
+    await signIn("credentials", formData)
+
     return {
-      success: false,
-      message: "Credential based login has not yet been implemented.",
+      success: true,
+      message: "Successfully logged in.",
     }
   } catch (error) {
     if (isRedirectError(error)) {
