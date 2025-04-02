@@ -6,15 +6,21 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db:migrate": "npx prisma migrate dev",
+    "db:studio": "npx prisma studio"
   },
   "dependencies": {
+    "@prisma/client": "^6.5.0",
     "bcryptjs": "^3.0.2",
     "next": "15.2.4",
     "next-auth": "^5.0.0-beta.25",
     "prisma": "^6.5.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
+  },
+  "prisma": {
+    "schema": "src/lib/database/schema.prisma"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
