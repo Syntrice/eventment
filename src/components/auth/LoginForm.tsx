@@ -1,14 +1,10 @@
 "use client"
 
 import login from "@/lib/actions/login"
-import ActionResponse from "@/lib/definitions/ActionResponse"
 import { useActionState } from "react"
 
 export default function LoginForm() {
-  const [state, action] = useActionState<ActionResponse | undefined>(
-    login,
-    undefined
-  )
+  const [state, action] = useActionState(login, undefined)
 
   return (
     <form className="flex flex-col" action={action}>
