@@ -1,8 +1,9 @@
 "use server"
 
+import { signIn } from "../auth"
 import ActionResponse from "../definitions/ActionResponse"
 
 export default async function githubLogin(): Promise<ActionResponse> {
-  console.log("Logging in with github...")
+  await signIn("github")
   return { success: false, message: "not implemented" }
 }
