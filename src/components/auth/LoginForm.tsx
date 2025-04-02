@@ -1,6 +1,17 @@
+"use client"
+
+import login from "@/lib/actions/login"
+import ActionResponse from "@/lib/definitions/ActionResponse"
+import { useActionState } from "react"
+
 export default function LoginForm() {
+  const [state, action] = useActionState<ActionResponse | undefined>(
+    login,
+    undefined
+  )
+
   return (
-    <form className="flex flex-col">
+    <form className="flex flex-col" action={action}>
       <label className="mb-2" htmlFor="username">
         Email
       </label>
@@ -24,6 +35,7 @@ export default function LoginForm() {
       <button aria-label="Login" className="mt-5 form-button">
         Login
       </button>
+      {state && <p className="mt-5 text-red-400">{state.message}</p>}
     </form>
   )
 }
