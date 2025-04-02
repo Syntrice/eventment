@@ -10,7 +10,7 @@ interface NavLinkProps {
 export default function NavLink({ children, href, onClick }: NavLinkProps) {
   return (
     <Link
-      className="p-2 transition-colors hover:bg-neutral-300 rounded-md"
+      className="p-2 transition-colors hover:bg-neutral-300 rounded-md block"
       href={href}
       onClick={onClick}
     >

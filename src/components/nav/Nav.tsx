@@ -3,10 +3,14 @@ import { useState, useEffect } from "react"
 import NavBrand from "./NavBrand"
 import NavToggle from "./NavToggle"
 import NavMenu from "./NavMenu"
-import ExpandedNavMenu from "./NavMenuExpanded"
 import { usePathname } from "next/navigation"
+import ClientSessionData from "@/lib/definitions/ClientSessionData"
 
-export default function Nav() {
+interface NavProps {
+  session?: ClientSessionData
+}
+
+export default function Nav({ session }: NavProps) {
   const [isToggled, setIsToggled] = useState(false)
 
   // Every path change, setToggled to false.
@@ -24,14 +28,14 @@ export default function Nav() {
           <NavBrand />
         </div>
         <div className="flex gap-5">
-          <NavMenu />
+          <NavMenu session={session} />
           <NavToggle
             toggled={isToggled}
             onClick={() => setIsToggled((p) => !p)}
           />
         </div>
       </nav>
-      {isToggled && <ExpandedNavMenu />}
+      {isToggled && <NavMenu vertical={true} session={session} />}
     </header>
   )
 }

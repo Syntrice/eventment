@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./global.css"
 import Nav from "@/components/nav/Nav"
+import { auth } from "@/lib/auth"
 
 const inter = Inter({
   subsets: ["latin"], // only load latin characters
@@ -14,15 +15,19 @@ export const metadata: Metadata = {
   description: "An events listing and RSVP platform built using next.js.",
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const session = await auth()
+
   return (
     <html lang="en">
       <body className={`${inter.variable} antialiased`}>
-        <Nav />
+        <Nav
+          session={{ isAuthenticated: !!session, name: session?.user?.name }}
+        />
         {children}
       </body>
     </html>
