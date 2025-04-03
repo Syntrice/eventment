@@ -3,6 +3,7 @@
 import { isRedirectError } from "next/dist/client/components/redirect-error"
 import { signIn } from "../auth"
 import LoginFormSchema from "../definitions/schema/LoginFormSchema"
+import { redirect } from "next/navigation"
 
 type LoginFormState =
   | {
@@ -27,7 +28,6 @@ export default async function login(
 
     // Check for schema violations and return early
     if (!validatedFields.success) {
-      console.log("validation error")
       return {
         // flatten the zod errors and get the fieldErrors, which matches the form state type
         errors: validatedFields.error.flatten().fieldErrors,
@@ -40,5 +40,7 @@ export default async function login(
       // this error should be handled further up the call stack (as it is may trigger a redirect)
       throw error
     }
+  } finally {
+    redirect("/")
   }
 }

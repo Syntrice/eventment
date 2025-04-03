@@ -2,6 +2,9 @@
 
 import { isRedirectError } from "next/dist/client/components/redirect-error"
 import RegisterFormSchema from "../definitions/schema/RegisterFormSchema"
+import bcrypt from "bcryptjs"
+import prisma from "../database/database"
+import { redirect } from "next/navigation"
 
 type RegisterFormState =
   | {
@@ -32,11 +35,22 @@ export default async function register(
       }
     }
 
-    // TODO: Register account
+    // Register account
+    const hashedPassword = await bcrypt.hash(validatedFields.data.password, 10)
+
+    await prisma.user.create({
+      data: {
+        email: validatedFields.data.email,
+        password: hashedPassword,
+        name: validatedFields.data.email.split("@")[0], // for now, name is truncated email
+      },
+    })
   } catch (error) {
     if (isRedirectError(error)) {
       // this error should be handled further up the call stack (as it is may trigger a redirect)
       throw error
     }
+  } finally {
+    redirect("/login")
   }
 }
