@@ -21,6 +21,7 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  Event     Event[]
 }
 
 model Account {
@@ -78,4 +79,16 @@ model Authenticator {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([userId, credentialID])
+}
+
+model Event {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String?
+  eventDate   DateTime
+  user        User     @relation(fields: [userId], references: [id]) // userId field references id on User
+  userId      String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
