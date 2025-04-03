@@ -1,24 +1,40 @@
 "use server"
 
 import { isRedirectError } from "next/dist/client/components/redirect-error"
-import ActionResponse from "../definitions/ActionResponse"
+import RegisterFormSchema from "../definitions/schema/RegisterFormSchema"
 
-export default async function register(): Promise<ActionResponse> {
+type RegisterFormState =
+  | {
+      errors?: {
+        email?: string[]
+        password?: string[]
+      }
+      message?: string
+    }
+  | undefined
+
+export default async function register(
+  state: RegisterFormState,
+  formData: FormData
+): Promise<RegisterFormState> {
   try {
-    console.log("Signing up...")
-    return {
-      success: false,
-      message: "Credential based registration has not yet been implemented.",
+    // Validate form input via zod schema
+    const validatedFields = RegisterFormSchema.safeParse({
+      email: formData.get("email"),
+      password: formData.get("password"),
+    })
+
+    // Check for schema violations and return early
+    if (!validatedFields.success) {
+      return {
+        // flatten the zod errors and get the fieldErrors, which matches the form state type
+        errors: validatedFields.error.flatten().fieldErrors,
+      }
     }
   } catch (error) {
     if (isRedirectError(error)) {
       // this error should be handled further up the call stack (as it is may trigger a redirect)
       throw error
-    }
-
-    return {
-      success: false,
-      message: "An error occurred while registering.",
     }
   }
 }
