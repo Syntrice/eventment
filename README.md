@@ -12,7 +12,7 @@ An exercise in [next.js](https://nextjs.org/) to create an events listing and RS
 - [x] [Prisma](https://www.prisma.io/) + SQLite data persistence layer
 - [x] Robust TypeScript code
 - [x] Responsive design with TailwindCSS + React
-- [ ] Posting and viewing of events (TBC)
+- [x] Posting and viewing of events
 - [ ] Maps API integration (TBC)
 
 ## Licence
