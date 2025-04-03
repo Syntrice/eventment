@@ -11,7 +11,7 @@ An exercise in [next.js](https://nextjs.org/) to create an events listing and RS
 - [x] Validation using [zod](https://zod.dev/)
 - [x] [Prisma](https://www.prisma.io/) + SQLite data persistence layer
 - [x] Robust TypeScript code
-- [x] Responsive design with TailwindCSS
+- [x] Responsive design with TailwindCSS + React
 - [ ] Posting and viewing of events (TBC)
 - [ ] Maps API integration (TBC)
 
