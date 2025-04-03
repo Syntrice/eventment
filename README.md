@@ -1,6 +1,6 @@
 # Eventment
 
-![image](https://github.com/user-attachments/assets/d1e43ea4-9b85-4bc6-91d3-7c93c11c6d83)
+![image](https://github.com/user-attachments/assets/d634f097-35e1-4cd9-92b2-9862d62bead6)
 
 An exercise in [next.js](https://nextjs.org/) to create an events listing and RSVP platform.
 
