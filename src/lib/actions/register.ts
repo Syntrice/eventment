@@ -31,6 +31,8 @@ export default async function register(
         errors: validatedFields.error.flatten().fieldErrors,
       }
     }
+
+    // TODO: Register account
   } catch (error) {
     if (isRedirectError(error)) {
       // this error should be handled further up the call stack (as it is may trigger a redirect)

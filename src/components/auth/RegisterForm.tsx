@@ -8,6 +8,7 @@ export default function RegisterForm() {
 
   return (
     <form className="flex flex-col" action={action}>
+      {/* Email */}
       <label className="mb-2" htmlFor="email">
         Email
       </label>
@@ -15,7 +16,7 @@ export default function RegisterForm() {
         className="input-text mb-2"
         type="text"
         name="email"
-        autoComplete="email"
+        autoComplete="username"
         placeholder="name@example.com"
         id="email"
         aria-required={true}
@@ -24,6 +25,7 @@ export default function RegisterForm() {
         <p className="text-red-400 mb-5">{state.errors.email}</p>
       )}
 
+      {/* Password */}
       <label className="mb-2" htmlFor="password">
         Password
       </label>
@@ -32,7 +34,7 @@ export default function RegisterForm() {
         type="password"
         name="password"
         id="password"
-        autoComplete="current-password"
+        autoComplete="new-password"
         placeholder="password"
         aria-required={true}
       ></input>
@@ -42,6 +44,7 @@ export default function RegisterForm() {
 
       <button
         disabled={pending}
+        aria-disabled={pending}
         aria-label="Login"
         className="mt-5 form-button"
       >
