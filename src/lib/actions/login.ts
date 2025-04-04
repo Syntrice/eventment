@@ -11,7 +11,6 @@ type LoginFormState =
         email?: string[]
         password?: string[]
       }
-      message?: string
     }
   | undefined
 

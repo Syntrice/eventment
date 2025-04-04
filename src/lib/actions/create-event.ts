@@ -13,7 +13,6 @@ type CreateEventFormState =
         description?: string[]
         date?: string[]
       }
-      message?: string
     }
   | undefined
 
