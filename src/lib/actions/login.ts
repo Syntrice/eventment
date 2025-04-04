@@ -1,9 +1,9 @@
 "use server"
 
-import { isRedirectError } from "next/dist/client/components/redirect-error"
+import { redirect } from "next/navigation"
 import { signIn } from "../auth"
 import LoginFormSchema from "../definitions/schema/LoginFormSchema"
-import { redirect } from "next/navigation"
+import executeAction from "./execute-action"
 
 type LoginFormState =
   | {
@@ -14,11 +14,9 @@ type LoginFormState =
     }
   | undefined
 
-export default async function login(
-  state: LoginFormState | undefined,
-  formData: FormData
-): Promise<LoginFormState> {
-  try {
+export default async function login(state: LoginFormState | undefined, formData: FormData): Promise<LoginFormState> {
+
+  return executeAction(async () => {
     // Validate form input via zod schema
     const validatedFields = LoginFormSchema.safeParse({
       email: formData.get("email"),
@@ -34,12 +32,7 @@ export default async function login(
     }
 
     await signIn("credentials", formData)
-  } catch (error) {
-    if (isRedirectError(error)) {
-      // this error should be handled further up the call stack (as it is may trigger a redirect)
-      throw error
-    }
-  } finally {
     redirect("/")
-  }
+
+  })
 }
