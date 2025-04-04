@@ -31,7 +31,9 @@ export default async function login(state: LoginFormState | undefined, formData:
       }
     }
 
+    // Todo: return error handling
     await signIn("credentials", formData)
+    
     redirect("/")
 
   })
