@@ -1,5 +1,6 @@
 "use server"
 
+import { CredentialsSignin } from "next-auth"
 import { redirect } from "next/navigation"
 import { signIn } from "../auth"
 import LoginFormSchema from "../definitions/schema/LoginFormSchema"
@@ -9,7 +10,8 @@ type LoginFormState =
   | {
       errors?: {
         email?: string[]
-        password?: string[]
+        password?: string[] 
+        general?: string[]
       }
     }
   | undefined
@@ -31,8 +33,24 @@ export default async function login(state: LoginFormState | undefined, formData:
       }
     }
 
-    // Todo: return error handling
-    await signIn("credentials", formData)
+    try {
+      await signIn("credentials", {
+        email: validatedFields.data.email,
+        password: validatedFields.data.password,
+        redirect: false
+      })
+    } catch (error) {
+      if (error instanceof CredentialsSignin) {
+        return {
+          errors: {
+            general: ["Invalid credentials."],
+          },
+        }
+      }
+      else {
+        throw error
+      }
+    }
     
     redirect("/")
 

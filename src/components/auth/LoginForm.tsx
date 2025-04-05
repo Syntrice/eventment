@@ -39,17 +39,20 @@ export default function LoginForm() {
         aria-required={true}
       ></input>
       {state?.errors?.password && (
-        <p className="text-red-400 mb-5">{state.errors.password}</p>
+        <p className="text-red-400 mb-5">{state.errors.password}</p> 
       )}
 
       <button
         disabled={pending}
         aria-disabled={pending}
         aria-label="Login"
-        className="mt-5 form-button"
+        className="my-5 form-button"
       >
         Login
       </button>
+      {state?.errors?.general && (
+        <p className="text-red-400 mb-5">{state.errors.general}</p> 
+      )}
     </form>
   )
 }
