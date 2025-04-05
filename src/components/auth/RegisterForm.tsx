@@ -46,7 +46,7 @@ export default function RegisterForm() {
         disabled={pending}
         aria-disabled={pending}
         aria-label="Login"
-        className="mt-5 form-button"
+        className="my-5 form-button"
       >
         Register
       </button>
