@@ -11,7 +11,7 @@ export default function CreateEventForm() {
       <label className="text-left" htmlFor="title" aria-required={true}>
         Title
       </label>
-      <input className="input-text" type="text" name="title" id="" />
+      <input aria-required={true} className="input-text" type="text" name="title" id="" />
       {state?.errors?.title && (
         <p className="text-red-400 mb-5 text-left">{state.errors.title}</p>
       )}
@@ -29,10 +29,10 @@ export default function CreateEventForm() {
           {state.errors.description}
         </p>
       )}
-      <label aria-required={true} className="text-left" htmlFor="date">
+      <label className="text-left" htmlFor="date">
         Date
       </label>
-      <input className="input-text" type="date" name="date" id="date" />
+      <input aria-required={true} className="input-text" type="date" name="date" id="date" />
       {state?.errors?.date && (
         <p className="text-red-400 mb-5 text-left">{state.errors.date}</p>
       )}
