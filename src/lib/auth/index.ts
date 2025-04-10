@@ -3,7 +3,7 @@ import NextAuth from "next-auth"
 import { v4 as uuid } from "uuid"
 import { encode as defaultEncode } from "next-auth/jwt"
 import GitHub from "next-auth/providers/github"
-import credentialsProvider from "./credentialsProvider"
+import credentialsProvider from "./credentials-provider"
 import { PrismaAdapter } from "@auth/prisma-adapter"
 import prisma from "../database/database"
 

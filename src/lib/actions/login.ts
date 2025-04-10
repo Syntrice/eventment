@@ -1,25 +1,24 @@
 "use server"
 
-import { isRedirectError } from "next/dist/client/components/redirect-error"
+import { CredentialsSignin } from "next-auth"
+import { redirect } from "next/navigation"
 import { signIn } from "../auth"
 import LoginFormSchema from "../definitions/schema/LoginFormSchema"
-import { redirect } from "next/navigation"
+import executeAction from "./execute-action"
 
 type LoginFormState =
   | {
       errors?: {
         email?: string[]
-        password?: string[]
+        password?: string[] 
+        general?: string[]
       }
-      message?: string
     }
   | undefined
 
-export default async function login(
-  state: LoginFormState | undefined,
-  formData: FormData
-): Promise<LoginFormState> {
-  try {
+export default async function login(state: LoginFormState | undefined, formData: FormData): Promise<LoginFormState> {
+
+  return executeAction(async () => {
     // Validate form input via zod schema
     const validatedFields = LoginFormSchema.safeParse({
       email: formData.get("email"),
@@ -34,13 +33,26 @@ export default async function login(
       }
     }
 
-    await signIn("credentials", formData)
-  } catch (error) {
-    if (isRedirectError(error)) {
-      // this error should be handled further up the call stack (as it is may trigger a redirect)
-      throw error
+    try {
+      await signIn("credentials", {
+        email: validatedFields.data.email,
+        password: validatedFields.data.password,
+        redirect: false
+      })
+    } catch (error) {
+      if (error instanceof CredentialsSignin) {
+        return {
+          errors: {
+            general: ["Invalid credentials."],
+          },
+        }
+      }
+      else {
+        throw error
+      }
     }
-  } finally {
+    
     redirect("/")
-  }
+
+  })
 }

@@ -1,8 +1,8 @@
+import Nav from "@/components/nav/Nav"
+import { auth } from "@/lib/auth"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./global.css"
-import Nav from "@/components/nav/Nav"
-import { auth } from "@/lib/auth"
 
 const inter = Inter({
   subsets: ["latin"], // only load latin characters
@@ -28,7 +28,9 @@ export default async function RootLayout({
         <Nav
           session={{ isAuthenticated: !!session, name: session?.user?.name }}
         />
-        {children}
+        <main>
+          {children}
+        </main>
       </body>
     </html>
   )

@@ -1,27 +1,25 @@
 "use server"
 
-import { isRedirectError } from "next/dist/client/components/redirect-error"
-import { auth } from "../auth"
-import CreateEventFormSchema from "../definitions/schema/CreateEventFormSchema"
 import { redirect } from "next/navigation"
+import { auth } from "../auth"
 import prisma from "../database/database"
+import CreateEventFormSchema from "../definitions/schema/CreateEventFormSchema"
+import executeAction from "./execute-action"
 
 type CreateEventFormState =
   | {
-      errors?: {
-        title?: string[]
-        description?: string[]
-        date?: string[]
-      }
-      message?: string
+    errors?: {
+      title?: string[]
+      description?: string[]
+      date?: string[]
     }
+  }
   | undefined
 
-export default async function createEvent(
-  state: CreateEventFormState | undefined,
-  formData: FormData
-): Promise<CreateEventFormState> {
-  try {
+export default async function createEvent(state: CreateEventFormState | undefined, formData: FormData): Promise<CreateEventFormState> {
+  
+  return await executeAction<CreateEventFormState>(async () => {
+
     // Validate form input via zod schema
     const validatedFields = CreateEventFormSchema.safeParse({
       title: formData.get("title"),
@@ -56,13 +54,5 @@ export default async function createEvent(
     })
 
     redirect("/events")
-
-    // Create event
-  } catch (error) {
-    if (isRedirectError(error)) {
-      // this error should be handled further up the call stack (as it is may trigger a redirect)
-      throw error
-    }
-    console.log(error)
-  }
+  })
 }

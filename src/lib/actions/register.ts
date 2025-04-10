@@ -1,10 +1,10 @@
 "use server"
 
-import { isRedirectError } from "next/dist/client/components/redirect-error"
-import RegisterFormSchema from "../definitions/schema/RegisterFormSchema"
 import bcrypt from "bcryptjs"
-import prisma from "../database/database"
 import { redirect } from "next/navigation"
+import prisma from "../database/database"
+import RegisterFormSchema from "../definitions/schema/RegisterFormSchema"
+import executeAction from "./execute-action"
 
 type RegisterFormState =
   | {
@@ -12,15 +12,12 @@ type RegisterFormState =
         email?: string[]
         password?: string[]
       }
-      message?: string
     }
   | undefined
 
-export default async function register(
-  state: RegisterFormState,
-  formData: FormData
-): Promise<RegisterFormState> {
-  try {
+export default async function register(state: RegisterFormState, formData: FormData): Promise<RegisterFormState> {
+
+  return await executeAction(async () => {
     // Validate form input via zod schema
     const validatedFields = RegisterFormSchema.safeParse({
       email: formData.get("email"),
@@ -45,12 +42,8 @@ export default async function register(
         name: validatedFields.data.email.split("@")[0], // for now, name is truncated email
       },
     })
-  } catch (error) {
-    if (isRedirectError(error)) {
-      // this error should be handled further up the call stack (as it is may trigger a redirect)
-      throw error
-    }
-  } finally {
+
     redirect("/login")
-  }
+
+  })
 }
